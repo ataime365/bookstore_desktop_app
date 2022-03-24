@@ -1,12 +1,12 @@
 from tkinter import *
-from backend import Database #importing another python file, on the same level
+from backend import Database #importing the Database class
 
 database = Database('books.db')
 
 window = Tk()
 window.wm_title("My BookStore")
-# insert(self, index, *elements) #from documentation.....Listbox
-#     Insert ELEMENTS at INDEX.
+
+
 def view_command():
 	Lb1.delete(0, END) #TO make the Listbox empty at the begining
 	for row in database.view(): #This is the list of tuples from the database
@@ -38,9 +38,6 @@ def add_entry():
 	#This is where the main inserting happens
 	database.insert(title_text, author_text, year_text, isbn_text)
 	clear_entry_boxes()
-	#New #This is just to show us the new details in a list box, empty the listbox first
-	# Lb1.delete(0, END) #First make sure the Listbox is empty
-	# Lb1.insert(END, (title_text, author_text, year_text, isbn_text)) #Then show the new data
 	Lb1.delete(0, END) #TO make the Listbox empty at the begining
 	for row in database.view(): #This is the list of tuples from the database
 		Lb1.insert(END, row)
@@ -48,8 +45,7 @@ def add_entry():
 
 '''because of the event special parameter that wouldnt let us use the funtion easily, 
    let us make selected_tuple_original_values a global variable from inside the function,
-   since we only need values from selected_tuple_original_values
-	'''
+   since we only need values from selected_tuple_original_values'''
 def listbox_click(event): #event is a special parameter
 	try:
 		global selected_tuple_original_values
@@ -92,17 +88,17 @@ def update_command():
 
 
 #The Four types of widgets
-b1 = Button(window, text="View all", width=12,command=view_command) #we don't call the function here, we just let python do its thing
+b1 = Button(window, text="View all", width=12,command=view_command) 
 b1.grid(row=2, column=3)
-b2 = Button(window, text="Search Entry", width=12, command=search_entry) #we don't call the function here, we just let python do its thing
+b2 = Button(window, text="Search Entry", width=12, command=search_entry) 
 b2.grid(row=3, column=3)
-b3 = Button(window, text="Add entry",  width=12, command=add_entry) #we don't call the function here, we just let python do its thing
+b3 = Button(window, text="Add entry",  width=12, command=add_entry) 
 b3.grid(row=4, column=3)
-b4 = Button(window, text="Update", width=12, command=update_command) #we don't call the function here, we just let python do its thing
+b4 = Button(window, text="Update", width=12, command=update_command)
 b4.grid(row=5, column=3)
-b5 = Button(window, text="Delete", width=12, command=delete_command) #we don't call the function here, we just let python do its thing
+b5 = Button(window, text="Delete", width=12, command=delete_command) 
 b5.grid(row=6, column=3)
-b6 = Button(window, text="Close", width=12, command=window.destroy) #we don't call the function here, we just let python do its thing
+b6 = Button(window, text="Close", width=12, command=window.destroy) 
 b6.grid(row=7, column=3)
 
 # Create a Label widget with "Kg" as label
@@ -149,31 +145,3 @@ sb1.configure(command = Lb1.yview)
 Lb1.bind('<<ListboxSelect>>', listbox_click)
 
 window.mainloop() #very important, so that our window doesn't close immediately after opening 
-#All widgets goes between
-
-
-
-
-
-
-
-### A different type of delete function
-# def delete_command():
-# 	title_text = e1.get()
-# 	author_text = e2.get()
-# 	year_text = e3.get()
-# 	isbn_text = e4.get()
-# 	database.delete(database.search(title_text, author_text, year_text, isbn_text)[0][0])
-# 	view_command()
-
-
-
-
-
-
-
-
-
-
-
-
